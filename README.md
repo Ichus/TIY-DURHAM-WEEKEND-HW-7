@@ -1,6 +1,6 @@
 README TIY Durham Weekend 7 HW
 ------------------------------
-A simple site which lists congressional representatives of a user entered address
+A simple site which lists congressional representatives for a user entered address
 
 To Use
 ------------------------------
@@ -16,7 +16,9 @@ To Do
 ------------------------------
 - Refactor show template
 
+
   Pull out code which accesses API and parses json to separate class
 - Change show template to look nicer.
+
 
   Display full title and party name when displaying representatives

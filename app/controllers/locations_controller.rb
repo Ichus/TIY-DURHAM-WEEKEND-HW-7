@@ -27,6 +27,15 @@ class LocationsController < ApplicationController
   private
 
     def request_representatives(lat, long)
+      reps = retrieve_reps(lat, long)
+      reps.map do |rep|
+        rep["title"] == "Sen" ? rep["title"] = "Senator" : rep["title"] = "House Representative"
+        rep["party"] == "R" ? rep["party"] = "Republican" : rep["party"] = "Democrat"
+      end
+      reps
+    end
+
+    def retrieve_reps(lat, long)
       @results = []
       open("https://congress.api.sunlightfoundation.com/legislators/locate?apikey=#{Rails.application.secrets.sunlight_api_key}&latitude=#{lat}&longitude=#{long}&fields=first_name,last_name,title,oc_email,party") do |reps|
         reps.each_line do |rep|

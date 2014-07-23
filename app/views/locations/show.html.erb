@@ -1,10 +1,13 @@
 <br><br><br>
 <div class="panel small-8 small-centered columns">
-  <h4 class="small-11 small-centered columns"><%= "Representatives for #{@location.full_address}" %></h4>
+  <h4 class="small-10 small-centered columns"><%= "Representatives for #{@location.full_address}" %></h4>
   <% @reps.each do |result| %>
+    <p class="small-12 small-centered columns">
+      <%= "#{result["first_name"]} #{result["last_name"]}, #{result["title"]}, 
+           #{result["party"]}" %>
+    </p>
     <p class="small-11 small-centered columns">
-      <%= "Name: #{result["first_name"]} #{result["last_name"]}, Email:
-          #{result["oc_email"]}, Title: #{result["title"]}, Party: #{result["party"]}" %>
+      <%= "Email: #{result["oc_email"]}" %>
     </p>
   <% end %>
   <%= link_to "Find more Representatives", root_url %>

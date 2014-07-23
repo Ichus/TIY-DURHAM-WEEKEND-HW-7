@@ -5,6 +5,10 @@ class LocationsController < ApplicationController
   def show
     @location = Location.find(params[:id])
     @reps = request_representatives(@location.latitude, @location.longitude)
+    if @location.latitude.nil?
+      redirect_to root_path
+      flash[:notice] = 'Invalid Address. If abbreviating leave off the period. Ex. "St" instead of "St."'
+    end
   end
 
   def new

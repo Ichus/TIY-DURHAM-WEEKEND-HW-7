@@ -13,9 +13,13 @@
       </div>
     <% end %>
 
-    <h4 class="small-9 small-centered columns">
+    <h4 class="small-10 small-centered columns">
       Enter your address to see your congressional representatives
     </h4>
+
+    <% if flash[:notice] %>
+      <p class="small-10 small-centered columns"><%= flash[:notice] %></p>
+    <% end %>
 
     <div class="field small-12 columns">
       <%= f.label :street_address %><br>

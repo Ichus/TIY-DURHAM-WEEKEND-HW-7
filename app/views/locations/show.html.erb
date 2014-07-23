@@ -1,16 +1,11 @@
 <br><br><br>
 <div class="panel small-8 small-centered columns">
   <h4 class="small-11 small-centered columns"><%= "Representatives for #{@location.full_address}" %></h4>
-  <% open("https://congress.api.sunlightfoundation.com/legislators/locate?apikey=#{Rails.application.secrets.sunlight_api_key}&latitude=#{@location.latitude}&longitude=#{@location.longitude}&fields=first_name,last_name,title,oc_email,party") do |reps| %>
-    <% reps.each_line do |rep| %>
-      <% representative_hash = JSON.parse rep %>
-      <% representative_hash["results"].each do |result| %>
-        <p class="small-11 small-centered columns">
-          <%= "Name: #{result["first_name"]} #{result["last_name"]}, Email:
-              #{result["oc_email"]}, Title: #{result["title"]}, Party: #{result["party"]}" %>
-        </p>
-      <% end %>
-    <% end %>
+  <% @reps.each do |result| %>
+    <p class="small-11 small-centered columns">
+      <%= "Name: #{result["first_name"]} #{result["last_name"]}, Email:
+          #{result["oc_email"]}, Title: #{result["title"]}, Party: #{result["party"]}" %>
+    </p>
   <% end %>
   <%= link_to "Find more Representatives", root_url %>
 </div>

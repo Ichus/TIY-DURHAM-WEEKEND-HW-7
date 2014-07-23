@@ -4,6 +4,7 @@ require 'json'
 class LocationsController < ApplicationController
   def show
     @location = Location.find(params[:id])
+    @reps = request_representatives(@location.latitude, @location.longitude)
   end
 
   def new
@@ -20,6 +21,17 @@ class LocationsController < ApplicationController
   end
 
   private
+
+    def request_representatives(lat, long)
+      @results = []
+      open("https://congress.api.sunlightfoundation.com/legislators/locate?apikey=#{Rails.application.secrets.sunlight_api_key}&latitude=#{lat}&longitude=#{long}&fields=first_name,last_name,title,oc_email,party") do |reps|
+        reps.each_line do |rep|
+          representative_hash = JSON.parse rep
+          @results = representative_hash["results"] if representative_hash["results"]
+        end
+      end
+      @results
+    end
 
     def location_params
       params.require(:location).permit(:street_adress, :city, :state, :zip)
